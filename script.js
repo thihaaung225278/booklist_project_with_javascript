@@ -86,6 +86,45 @@ class UI{
 		},2000);
 	}
 }
+//Store Class
+class Store{
+	//get book form local storage
+	static getBooks(){
+		let books = '';
+		if(localStorage.getItem('books') === null){
+			books = [];
+		}else{
+			books = JSON.parse(localStorage.getItem('books'));
+		}
+		return books;
+	}
+	//add book to local storage
+	static addBookToLocalStorage(book){
+		let books = Store.getBooks();
+		books.push(book);
+		localStorage.setItem('books',JSON.stringify(books));
+	}
+	//display book from local storage
+	static displayBooks(){
+		const books = Store.getBooks();
+		books.forEach(function(book){
+			const ui = new UI();
+			ui.addBookToList(book);
+		});
+	}
+	//delete book form local storage
+	static deleteBookFromLocalStorage(isbn){
+		const books = Store.getBooks();
+		books.forEach(function(book,index){
+			if(book.isbn === isbn){
+				books.splice(index,1);
+			}
+		});
+		localStorage.setItem('books',JSON.stringify(books));
+	}
+}
+
+
 //Event Listener for add book
 document.getElementById('book-form').addEventListener('submit',function(e){
 
@@ -106,6 +145,8 @@ document.getElementById('book-form').addEventListener('submit',function(e){
 	}else{
 		//add book to list
 		ui.addBookToList(book);
+		//add book to local storage
+		Store.addBookToLocalStorage(book);
 		//show success alert
 		ui.showAlert('Insert Book Successfully.','success');
 		//clear data from textinput field
@@ -116,12 +157,17 @@ document.getElementById('book-form').addEventListener('submit',function(e){
 	e.preventDefault();
 });
 
+//DOM Content Loaded
+document.addEventListener('DOMContentLoaded',Store.displayBooks);
+
 //Event Listener for delete book
 document.getElementById('book-list').addEventListener('click',function(e){
 	//Instantiate UI
 	const ui = new UI();
 	//delete book from list
 	ui.deleteBook(e.target);
+	//delete book from local storage
+	Store.deleteBookFromLocalStorage(e.target.parentElement.previousElementSibling.textContent);
 	//show alert for delete book
 	ui.showAlertForDelete('Delete Book Successfully','success');
 
