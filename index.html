@@ -11,8 +11,12 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
     <!-- responsive bootstrap 4 -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
-
-	<title></title>
+	<style>
+		.dataTables_empty{
+			display: none;
+		}
+	</style>
+	<title>Book list</title>
 </head>
 <body>
 
@@ -31,6 +35,7 @@
 				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
 				  Add New Book
 				</button>
+				
 
 				<!-- Modal -->
 				<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -43,24 +48,28 @@
 				        </button>
 				      </div>
 				      <div class="modal-body">
-				        <form>
+				        <form id="book-form">
 				        	<div class="form-group">
-				        		<label>Book Title</label>
-				        		<input type="text" class="form-control">
+				        		<label for="title">Book Title</label>
+				        		<input type="text" class="form-control" id="title">
 				        	</div>
 				        	<div class="form-group">
-				        		<label>Author</label>
-				        		<input type="text" class="form-control">
+				        		<label for="author">Author</label>
+				        		<input type="text" class="form-control" id="author">
 				        	</div>
 				        	<div class="form-group">
-				        		<label>ISBM</label>
-				        		<input type="text" class="form-control">
+				        		<label for="isbn">International standard book number(ISBN)</label>
+				        		<input type="text" class="form-control" id="isbn">
+				        	</div>
+				        	<hr>
+				        	<div class="form-group float-right">
+				        		<input type="submit" value="Add Book" class="btn btn-primary">
 				        	</div>
 				        </form>
 				      </div>
-				      <div class="modal-footer">
+				      <!-- <div class="modal-footer">
 				        <button type="button" class="btn btn-primary">Add Book</button>
-				      </div>
+				      </div> -->
 				    </div>
 				  </div>
 				</div>
@@ -76,53 +85,19 @@
 				                <th>Book Title</th>
 				                <th>Author</th>
 				                <th>ISBN</th>
-				                <th>
-				                	
-				                </th>
+				                <th>Delete Button</th>
 				            </tr>
 				        </thead>
-				        <tbody>
-				            <tr>
-				                <td>London</td>
-				                <td>30</td>
-				                <td>2008/12/19</td>
-				                <td>
-				                	<a href="#" class="btn btn-danger">X</a>
-				                </td>
-				            </tr>
-				            <tr>
-				                <td>Edinburgh</td>
-				                <td>22</td>
-				                <td>2013/03/03</td>
-				                <td>
-				                	<a href="#" class="btn btn-danger">X</a>
-				                </td>
-				            </tr>
-				            <tr>
-				                <td>San Francisco</td>
-				                <td>36</td>
-				                <td>2008/10/16</td>
-				                <td>
-				                	<a href="#" class="btn btn-danger">X</a>
-				                </td>
-				            </tr>
-				            <tr>
-				                <td>London</td>
-				                <td>43</td>
-				                <td>2012/12/18</td>
-				                <td>
-				                	<a href="#" class="btn btn-danger">X</a>
-				                </td>
-				            </tr>
+				        <tbody id="book-list">
+				    
+				      
 				        </tbody>
 				        <tfoot>
 				            <tr>
 				                <th>Book Title</th>
 				                <th>Author</th>
 				                <th>ISBN</th>
-				                <td>
-				                	<a href="#" class="btn btn-danger">X</a>
-				                </td>
+				                <th>Delete Button</th>
 				            </tr>
 				        </tfoot>
 				    </table>
